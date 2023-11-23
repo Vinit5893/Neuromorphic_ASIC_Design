@@ -135,8 +135,11 @@ np.random.seed(0)
 
 class Layer_Dense:
     def __init__(self, n_inputs, n_neurons):
-        self.weights = 0.10 * np.random.randn(n_inputs, n_neurons) # 0.10 is used to scale the values
-        self.biases = np.zeros((1, n_neurons)) # np.zeros() is used to create an array of zeros
+        self.weights = 0.10 * np.random.randn(n_inputs, n_neurons) # 0.10 is used to scale the values to a useful range
+        # np.random.randn() is used to create an array of random numbers 
+        # n_inputs is the number of inputs and n_neurons is the number of neurons
+        # so the shape of the array will be (n_inputs, n_neurons)
+        self.biases = np.zeros((1, n_neurons)) # np.zeros() is used to create an array of zeros # shape = (1, n_neurons)
 
     def forward(self, inputs):
         self.output = np.dot(inputs, self.weights) + self.biases
