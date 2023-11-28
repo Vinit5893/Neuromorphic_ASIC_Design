@@ -8,6 +8,9 @@ np.random.seed(0)
 def create_data(samples, classes):
     X = np.zeros((samples*classes, 2))
     y = np.zeros(samples*classes, dtype='uint8')
+
+    print (X)
+    print (y)
     for class_number in range(classes):
         ix = range(samples*class_number, samples*(class_number+1))
         r = np.linspace(0.0, 1, samples)
@@ -25,3 +28,7 @@ X, y = create_data(100, 3)
 
 plt.scatter(X[:, 0], X[:, 1])
 plt.show()
+
+plt.scatter(X[:, 0], X[:, 1], c=y, cmap="brg")
+plt.show()
+
