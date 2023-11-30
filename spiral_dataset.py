@@ -24,6 +24,7 @@ import matplotlib.pyplot as plt
 
 print("Here is the spiral dataset:")
 X, y = create_data(100, 3)
+print(X,y)
 
 
 plt.scatter(X[:, 0], X[:, 1])
