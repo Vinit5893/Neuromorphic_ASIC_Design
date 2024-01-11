@@ -303,9 +303,9 @@ class Activation_Softmax:
         probabilities = exp_values / np.sum(exp_values, axis=1, keepdims=True) # np.sum() is used to find the sum of all the values in an array
         self.output = probabilities
 
-layer1 = Layer_Dense(2, 3)
-activation1 = Activation_ReLU()
-layer2 = Layer_Dense(3, 3)
+layer1 = Layer_Dense(2, 3) # 2 inputs, 3 neurons
+activation1 = Activation_ReLU() 
+layer2 = Layer_Dense(3, 3) # 3 inputs, 3 neurons
 activation2 = Activation_Softmax()
 
 layer1.forward(X)
