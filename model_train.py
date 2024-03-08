@@ -1,10 +1,10 @@
 # %%
-!python.exe -m pip install --upgrade pip
-!pip install tensorflow
-!pip install scikit-learn
-!pip install keras
-!pip install seaborn
-!pip install ann_visualizer
+# !python.exe -m pip install --upgrade pip
+# !pip install tensorflow
+# !pip install scikit-learn
+# !pip install keras
+# !pip install seaborn
+# !pip install ann_visualizer
 
 # %%
 import os
@@ -30,9 +30,9 @@ from keras.layers import Dense
 # from ann_visualizer.visualize import ann_viz
 
 # %%
-import tensorflow as tf
-print("GPU Available:", tf.config.list_physical_devices('GPU'))
-os.environ["CUDA_VISIBLE_DEVICES"] = "0"
+# import tensorflow as tf
+# print("GPU Available:", tf.config.list_physical_devices('GPU'))
+# os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 
 # %%
 # def path_to_csv(file_number):
@@ -45,13 +45,13 @@ os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 #             return file_path
 
 # %%
-path = 'database\\MIT-BIH Arrhythmia Database copy.csv'
+path = 'MIT-BIH Arrhythmia Database copy.csv'
 
 # %%
 file_path  = os.path.join(ROOT_DIR, path)
 
 # %%
-file_path
+print(file_path)
 
 # %%
 # fix random seed for reproducibility
@@ -74,7 +74,7 @@ dataset = pd.concat([dataset] + [veb_rows]*12 + [sveb_rows]*29 + [f_rows]*110 + 
 dataset = dataset.sample(frac=1).reset_index(drop=True)
 
 # %%
-dataset
+# dataset
 
 # %%
 # split into input (X) and output (dataset) variables
@@ -89,10 +89,10 @@ X = pd.concat([
 Y = dataset[['type']]
 
 # %%
-X
+# X
 
 # %%
-dataset
+# dataset
 
 # %%
 # # normalize data
@@ -118,17 +118,17 @@ dataset
 Y.replace(['N','VEB', 'SVEB', 'F', 'Q'], [0,1,2,3,4], inplace=True)
 
 # %%
-Y
+# Y
 
 # %%
 from sklearn.model_selection import train_test_split
 X_train, X_val, y_train, y_val = train_test_split(X , Y, test_size=0.2, random_state=42)
 
 # %%
-X_train
+# X_train
 
 # %%
-y_train
+# y_train
 
 # %%
 from matplotlib import pyplot as plt
@@ -180,7 +180,7 @@ model.fit(X_train, y_train, epochs=2, batch_size=10,validation_data=(X_val, y_va
 
 
 # %%
-model
+# model
 
 # %%
 scores = model.evaluate(X_train, y_train)
@@ -191,8 +191,8 @@ print("\n%s: %.2f%%" % (model.metrics_names[1], scores[1]*100))
 # Save model
 # model.save('model1_ECG.h5')
 
-file_path = os.path.join(ROOT_DIR, '0.86_model5_ECG_6_20_20_5.h5')
-model.save(file_path)
+model_path = os.path.join(ROOT_DIR, '0.86_model5_ECG_6_20_20_5.h5')
+model.save(model_path)
 
 # %%
 # from google.colab import files
@@ -208,7 +208,7 @@ model.save(file_path)
 # ann_viz(model, title="My graph")
 
 # %%
-path = os.path.join(ROOT_DIR, 'database\\MIT-BIH Arrhythmia Database copy.csv') #database/INCART 2-lead Arrhythmia Database.csvdatabase/MIT-BIH Supraventricular Arrhythmia Database.csv
+# path = os.path.join(ROOT_DIR, 'database\\MIT-BIH Arrhythmia Database copy.csv') #database/INCART 2-lead Arrhythmia Database.csvdatabase/MIT-BIH Supraventricular Arrhythmia Database.csv
 
 # %%
 import numpy as np
@@ -216,23 +216,23 @@ from keras.models import load_model
 from sklearn import metrics
 
 # Load the trained model
-file_path = os.path.join(ROOT_DIR, '0.86_model5_ECG_6_20_20_5.h5')
-model = load_model(file_path)
+# file_path = os.path.join(ROOT_DIR, '0.86_model5_ECG_6_20_20_5.h5')
+# model = load_model(file_path)
 
-# start_i = 
-# nos = 
+start_i = 80535
+nos = 20
 
-df = pd.read_csv(path)
+df = pd.read_csv(file_path)
 X_new = pd.concat([
-    df.iloc[:, 2:4],
-    df.iloc[:, 9:13]
+    df.iloc[start_i:start_i+nos, 2:4],
+    df.iloc[start_i:start_i+nos, 9:13]
 ], axis=1)
 
 Y_new = df[['type']]
 
 
 # Get a section of the data from DataFrame Y
-y_actual = Y_new[:]
+y_actual = Y_new[start_i:start_i+nos]
 
 
 print(X_new)

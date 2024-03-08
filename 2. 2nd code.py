@@ -316,3 +316,5 @@ activation2.forward(layer2.output)
 print(activation2.output[:5]) # print first 5 outputs
 
 # print(np.sum(activation2.output, axis=1, keepdims=True))
+
+

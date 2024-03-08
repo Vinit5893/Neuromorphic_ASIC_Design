@@ -78,7 +78,7 @@ def plot_Signals(file_number):
     signal_2_stats = df[df.columns[2]].describe()
     print('Statistiques descriptives pour Signal 2 :\n', signal_2_stats)
 
-plot_Signals(104)
+# plot_Signals(104)
 
 # |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| #
 # Visualizing the peaks of r wave of ECG Signal
@@ -126,7 +126,7 @@ def detect_and_visualize_r_peaks(file_number):
     plt.show()
 
 
-detect_and_visualize_r_peaks(105)
+# detect_and_visualize_r_peaks(105)
     
 
 # |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| #
@@ -187,12 +187,12 @@ def detect_and_segment_r_peaks(Number_File, path='mitbih_database/'):
     print(s_t_segments1[2])
 
     pr_interval = abs(p_peaks_mlii - r_peaks_mlii[2])
-    print(pr_interval)
-    print("pr interval is : ", pr_interval/360)
+    print("absolute(", p_peaks_mlii ,"-", r_peaks_mlii[2] ,") = " , pr_interval)
+    print("pr interval is : pr_frame/360 = ", pr_interval/360)
 
     qt_interval = abs(t_peaks_mlii - r_peaks_mlii[2])
-    print(qt_interval)
-    print("qt interval is : ", qt_interval/360) 
+    print("absolute(",t_peaks_mlii ,"-", r_peaks_mlii[2],") = ",qt_interval)
+    print("qt interval is : qt_frame = ", qt_interval/360) 
 
     # Create segments around R-peaks for Signal 2
     # segments2 = [ecg_signal2[peak - window_size // 2: peak + window_size // 2] for peak in r_peaks_v5]
@@ -219,25 +219,25 @@ def detect_and_segment_r_peaks(Number_File, path='mitbih_database/'):
     p_q_segment = p_q_segments1[seg]
     p_q_x_values = np.arange(len(p_q_segment)) + seg * len(p_q_segment)
     # print (p_q_x_values)
-    plt.plot(p_q_x_values, p_q_segment, label=f'Segment {seg + 1}', color=colors[1])
+    # plt.plot(p_q_x_values, p_q_segment, label=f'Segment {seg + 1}', color=colors[1])
     # plt.show()
 
     s_t_segment = s_t_segments1[seg]
     s_t_x_values = np.arange(len(s_t_segment)) + seg * len(s_t_segment)
     # print (s_t_x_values)
-    plt.plot(s_t_x_values, s_t_segment, label=f'Segment {seg + 1}', color=colors[2])
+    # plt.plot(s_t_x_values, s_t_segment, label=f'Segment {seg + 1}', color=colors[2])
     # plt.show()
 
 
 
     # Plot the segments for Signal 1
-    # for i in range(num_segments):
-    #     segment = segments1[i]
-    #     x_values = np.arange(len(segment)) + i * len(segment)
-    #     plt.plot(x_values, segment, label=f'Segment {i + 1}', color=colors[i])
+    for i in range(num_segments):
+        segment = segments1[i]
+        x_values = np.arange(len(segment)) + i * len(segment)
+        plt.plot(x_values, segment, label=f'Segment {i + 1}', color=colors[i])
 
-    #     # Store the position of the separator (end of the segment)
-    #     separator_positions.append(x_values[-1])
+        # Store the position of the separator (end of the segment)
+        separator_positions.append(x_values[-1])
 
 
 #     # Plot the segments for Signal 2
@@ -259,6 +259,6 @@ def detect_and_segment_r_peaks(Number_File, path='mitbih_database/'):
     plt.title('ECG Segments with Separators Between Waves')
     plt.legend()
     plt.grid(True)
-    # plt.show()
+    plt.show()
 
 detect_and_segment_r_peaks(105)
